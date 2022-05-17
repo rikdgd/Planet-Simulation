@@ -3,7 +3,7 @@ package planet_simulation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhysicsEngine {
+public class PhysicsEngine extends Thread {
 
     private List<Planet> planetList;
 
@@ -13,6 +13,19 @@ public class PhysicsEngine {
 
     public PhysicsEngine(List<Planet> planetList) {
         this.planetList = planetList;
+    }
+
+    @Override
+    public void run(){
+        while(this.planetList.size() > 1){
+            CalculateNewPlanetFrame();
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -48,10 +61,7 @@ public class PhysicsEngine {
     }
 
     private boolean MergePossible(Planet planetA, Planet planetB){
-        if (planetA.CalcGravity(planetB) < planetA.CalcRadius() + planetB.CalcRadius()){
-            return true;
-        }
-        return false;
+        return planetA.CalcGravity(planetB) < planetA.CalcRadius() + planetB.CalcRadius();
     }
 
     private Planet MergePlanet(Planet planetA, Planet planetB){

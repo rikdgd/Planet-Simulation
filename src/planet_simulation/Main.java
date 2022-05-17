@@ -9,7 +9,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<Planet> planets = new ArrayList<Planet>();
+        List<Planet> planets = new ArrayList<>();
 
         int x = 0;
         int y = 0;
@@ -22,18 +22,25 @@ public class Main {
         }
 
         SimulationDisplay display = new SimulationDisplay();
-        SimulationPanel panel = new SimulationPanel(planets, 400, 400);
-        display.AddSimulationPanel(panel);
 
-        int planetCount = planets.size();
-        while(planetCount > 1){
+        PhysicsEngine physicsEngine = new PhysicsEngine(planets);
+        physicsEngine.start();
 
-            PhysicsEngine pEngine = new PhysicsEngine(planets);
-            pEngine.CalculateNewPlanetFrame();
-            planets = pEngine.getPlanetList();
+        int i = 0;
 
-            panel.UpdatePanel(planets);
-            planetCount = planets.size();
+        while(physicsEngine.isAlive()){
+
+            SimulationPanel panel = new SimulationPanel(physicsEngine.getPlanetList(), 400, 400);
+            display.AddSimulationPanel(panel);
+
+            try {
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            List<Planet> planetList = physicsEngine.getPlanetList();
+            System.out.println(planetList.get(0).xPos + " - " + planetList.get(0).yPos);
         }
     }
 }
