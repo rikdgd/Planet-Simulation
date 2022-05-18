@@ -94,8 +94,8 @@ public class PhysicsEngine extends Thread {
     }
 
     private double[] GetMergedXYPosition(Planet planetA, Planet planetB){
-        double dx = planetB.xPos - planetA.xPos;
-        double dy = planetB.yPos - planetA.yPos;
+        // double dx = planetB.xPos - planetA.xPos;
+        // double dy = planetB.yPos - planetA.yPos;
 
         // Calculate the x and y position for center of mass.
         double comX = (planetA.mass * planetA.xPos + planetB.mass * planetB.xPos) / (planetA.mass + planetB.mass);

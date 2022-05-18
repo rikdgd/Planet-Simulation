@@ -11,12 +11,12 @@ public class Main {
     public static void main(String[] args) {
         List<Planet> planets = new ArrayList<>();
 
-        int x = 0;
-        int y = 0;
+        double x = 0.0;
+        double y = 0.0;
         for (int i = 0; i < 10; i++){
-            Planet planet = new Planet(x, y, 500, 0, 0);
-            x += 20;
-            y += 20;
+            Planet planet = new Planet(x, y, 500.0, 0.0, 0.0);
+            x += 20.0;
+            y += 20.0;
 
             planets.add(planet);
         }
@@ -26,7 +26,6 @@ public class Main {
         PhysicsEngine physicsEngine = new PhysicsEngine(planets);
         physicsEngine.start();
 
-        int i = 0;
 
         while(physicsEngine.isAlive()){
 
@@ -40,7 +39,8 @@ public class Main {
             }
 
             List<Planet> planetList = physicsEngine.getPlanetList();
-            System.out.println(planetList.get(0).xPos + " - " + planetList.get(0).yPos);
+            System.out.println("vel: " + planetList.get(0).xVel + " - " + planetList.get(0).yVel);
+            System.out.println("pos: " + planetList.get(0).xPos + " - " + planetList.get(0).yPos);
         }
     }
 }
