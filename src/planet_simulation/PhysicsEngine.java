@@ -40,7 +40,7 @@ public class PhysicsEngine extends Thread {
 
                 if (MergePossible(planet1, planet2)){
                     if (planet1.isActive && planet2.isActive){
-                        planet1 = MergePlanet(planet1, planet2);
+                        planet1 = TryMergePlanet(planet1, planet2);
 
                         // After the planets are merged, delete the second planet.
 //                      planetList.remove(planetList.indexOf(planet2));
@@ -52,6 +52,9 @@ public class PhysicsEngine extends Thread {
             planet1.xVel = GetNewPlanetXYVelocity(planet1, planetList)[0];
             planet1.yVel = GetNewPlanetXYVelocity(planet1, planetList)[1];
 
+            planet1.xPos += planet1.xVel;
+            planet1.yPos += planet1.yVel;
+
             if (planet1.isActive){
                 newPlanetList.add(planet1);
             }
@@ -61,11 +64,11 @@ public class PhysicsEngine extends Thread {
     }
 
     private boolean MergePossible(Planet planetA, Planet planetB){
-        return planetA.CalcGravity(planetB) < planetA.CalcRadius() + planetB.CalcRadius();
+        return planetA.CalcDistance(planetB) < planetA.CalcRadius() + planetB.CalcRadius();
     }
 
-    private Planet MergePlanet(Planet planetA, Planet planetB){
-        if (planetA.CalcDistance(planetB) < planetA.CalcRadius() + planetB.CalcRadius()){
+    private Planet TryMergePlanet(Planet planetA, Planet planetB){
+        if (MergePossible(planetA, planetB)){
 
             planetA.xVel = GetMergedXYVelocity(planetA, planetB)[0];
             planetA.yVel = GetMergedXYVelocity(planetA, planetB)[1];
