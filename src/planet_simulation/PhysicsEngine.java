@@ -34,18 +34,16 @@ public class PhysicsEngine extends Thread {
 
         for (Planet planet1 : planetList) {
             for (Planet planet2 : planetList){
-                if(planet1 == planet2){
+                if(planet1 == planet2 || !planet2.isActive){
                     continue;
                 }
 
                 if (MergePossible(planet1, planet2)){
-                    if (planet1.isActive && planet2.isActive){
-                        planet1 = TryMergePlanet(planet1, planet2);
+                    planet1 = TryMergePlanet(planet1, planet2);
 
-                        // After the planets are merged, delete the second planet.
+                    // After the planets are merged, delete the second planet.
 //                      planetList.remove(planetList.indexOf(planet2));
-                        planet2.isActive = false;
-                    }
+                    planet2.isActive = false;
                 }
             }
 
@@ -60,11 +58,19 @@ public class PhysicsEngine extends Thread {
             }
         }
 
+        // stop debugging here
         planetList = newPlanetList;
     }
 
     private boolean MergePossible(Planet planetA, Planet planetB){
-        return planetA.CalcDistance(planetB) < planetA.CalcRadius() + planetB.CalcRadius();
+//        return planetA.CalcDistance(planetB) < planetA.CalcRadius() + planetB.CalcRadius();
+        if (planetA.CalcDistance(planetB) < planetA.CalcRadius() + planetB.CalcRadius()){
+            if(planetA.isActive && planetB.isActive){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private Planet TryMergePlanet(Planet planetA, Planet planetB){
