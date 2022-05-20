@@ -49,8 +49,8 @@ public class PhysicsEngine extends Thread {
                 }
             }
 
-            planet1.xVel = GetNewPlanetXYVelocity(planet1, newPlanetList)[0];
-            planet1.yVel = GetNewPlanetXYVelocity(planet1, newPlanetList)[1];
+            planet1.xVel = GetNewPlanetXYVelocity(planet1, planetList)[0];
+            planet1.yVel = GetNewPlanetXYVelocity(planet1, planetList)[1];
 
             if (planet1.isActive){
                 newPlanetList.add(planet1);
@@ -65,7 +65,7 @@ public class PhysicsEngine extends Thread {
     }
 
     private Planet MergePlanet(Planet planetA, Planet planetB){
-        if (planetA.CalcGravity(planetB) < planetA.CalcRadius() + planetB.CalcRadius()){
+        if (planetA.CalcDistance(planetB) < planetA.CalcRadius() + planetB.CalcRadius()){
 
             planetA.xVel = GetMergedXYVelocity(planetA, planetB)[0];
             planetA.yVel = GetMergedXYVelocity(planetA, planetB)[1];
@@ -109,18 +109,20 @@ public class PhysicsEngine extends Thread {
         double yVel = planet.yVel;
 
         for (Planet otherPlanet : otherPlanets){
-            double dx = planet.GetXDist(otherPlanet);
-            double dy = planet.GetYDist(otherPlanet);
-            double gravity = planet.CalcGravity(otherPlanet);
-
-            // Below gravity gets multiplied with the x and y distance,
-            // this is done because the force needs to be distributed.
-            double xAcceleration = gravity * dx * 0.000000067 * otherPlanet.mass;
-            double yAcceleration = gravity * dy * 0.000000067 * otherPlanet.mass;
-
-            // Add the acceleration to the speed.
-            xVel += xAcceleration;
-            yVel += yAcceleration;
+            if(planet != otherPlanet){
+                double dx = planet.GetXDist(otherPlanet);
+                double dy = planet.GetYDist(otherPlanet);
+                double gravity = planet.CalcGravity(otherPlanet);
+    
+                // Below gravity gets multiplied with the x and y distance,
+                // this is done because the force needs to be distributed.
+                double xAcceleration = gravity * dx * 0.000000067 * otherPlanet.mass;
+                double yAcceleration = gravity * dy * 0.000000067 * otherPlanet.mass;
+    
+                // Add the acceleration to the speed.
+                xVel += xAcceleration;
+                yVel += yAcceleration;
+            }
         }
 
         return new double[] {xVel, yVel};
