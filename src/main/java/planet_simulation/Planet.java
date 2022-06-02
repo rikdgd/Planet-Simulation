@@ -72,7 +72,7 @@ public class Planet {
     }
 
     public static double CalcRadius(double planetMass){
-        double planetRadius = Math.round(Math.pow(planetMass / ((4 * Math.PI) / 3), 1 / 3));
+        double planetRadius = Math.round(Math.pow(planetMass / ((4 * Math.PI) / 3), 1 / 3d));
         return planetRadius;
     }
 

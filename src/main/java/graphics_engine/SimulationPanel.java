@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SimulationPanel extends JPanel {
 
-    private List<Planet> planetList;
+    private transient List<Planet> planetList;
 
     public List<Planet> getPlanetList() {
         return planetList;

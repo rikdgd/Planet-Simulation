@@ -38,7 +38,7 @@ public class PlanetFactory {
         List<Planet> planetList = new ArrayList<>();
 
         // Start by creating the big planet to orbit the smaller ones around
-        Planet bigPlanet = new Planet(xPosMax / 2, yPosMax / 2, mass*100, 0, 0);
+        Planet bigPlanet = new Planet(xPosMax / 2d, yPosMax / 2d, mass*100, 0, 0);
         planetList.add(bigPlanet);
 
         // Start creating the planets with stable orbits
