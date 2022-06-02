@@ -29,6 +29,7 @@ public class Main {
 
         while(physicsEngine.isAlive()){
 
+            // Create the window
             SimulationPanel panel = new SimulationPanel(physicsEngine.getPlanetList(), 400, 400);
             display.AddSimulationPanel(panel);
 
