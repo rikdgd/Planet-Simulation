@@ -6,7 +6,7 @@ public class SimulationDisplay extends JFrame {
 
     public SimulationDisplay(){
         this.setTitle("Planet Simulation");
-        this.setDefaultCloseOperation(SimulationDisplay.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(true);
         this.setLocationRelativeTo(null); // Centers the display on the monitor.
