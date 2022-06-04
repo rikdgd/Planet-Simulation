@@ -37,6 +37,7 @@ public class Main {
                 Thread.sleep(16);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
 
             List<Planet> planetList = physicsEngine.getPlanetList();
