@@ -27,7 +27,6 @@ public class SimulationPanel extends JPanel {
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        //g2d.setBackground(new Color(10, 10, 10));
 
         for (Planet planet : planetList){
             int x = GetPlanetDrawLocation(planet)[0];

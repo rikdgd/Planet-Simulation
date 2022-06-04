@@ -43,7 +43,6 @@ public class PhysicsEngine extends Thread {
                     planet1 = TryMergePlanet(planet1, planet2);
 
                     // After the planets are merged, delete the second planet.
-//                      planetList.remove(planetList.indexOf(planet2));
                     planet2.isActive = false;
                 }
             }
@@ -64,13 +63,9 @@ public class PhysicsEngine extends Thread {
     }
 
     private boolean MergePossible(Planet planetA, Planet planetB){
-//        return planetA.CalcDistance(planetB) < planetA.CalcRadius() + planetB.CalcRadius();
         if (planetA.CalcDistance(planetB) < planetA.CalcRadius() + planetB.CalcRadius()){
-            if(planetA.isActive && planetB.isActive){
-                return true;
-            }
+            return planetA.isActive && planetB.isActive;
         }
-
         return false;
     }
 
@@ -104,8 +99,6 @@ public class PhysicsEngine extends Thread {
     }
 
     private double[] GetMergedXYPosition(Planet planetA, Planet planetB){
-        // double dx = planetB.xPos - planetA.xPos;
-        // double dy = planetB.yPos - planetA.yPos;
 
         // Calculate the x and y position for center of mass.
         double comX = (planetA.mass * planetA.xPos + planetB.mass * planetB.xPos) / (planetA.mass + planetB.mass);
